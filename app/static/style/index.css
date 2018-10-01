@@ -1,0 +1,21 @@
+.container{
+    display: flex;
+    width: 1800px;
+    height: 500px;
+}
+
+.panel{
+    margin: 5px;
+}
+
+.panel.left{
+    background-color: aqua;
+    order: 0;
+    flex: 1;
+}
+
+.panel.right{
+    background-color: cornflowerblue;
+    order: 1;
+    flex: 2;
+}

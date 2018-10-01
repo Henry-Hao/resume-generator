@@ -29,7 +29,11 @@ require(['jquery'],function(jquery){
         'main',
 
         // controller
-        'app/controller/indexController'
+        'app/controller/indexController',
+        'app/controller/resumeController',
+        
+        //component
+        
     ],function(angular){
         // bootstrap
         angular.bootstrap(document.documentElement, ['myApp']);

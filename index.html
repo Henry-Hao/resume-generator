@@ -5,11 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet"  href="./app/static/style/index.css" >
+    
+    <link rel="stylesheet" href="./node_modules/angular-material/angular-material.min.css" />
+    <link rel="stylesheet"  href="./app/static/style/index.css" />
     <script src="./node_modules/requirejs/require.js" data-main="./config.js"></script>
 </head>
 <body data-ng-controller="indexController">
-    <div class="container">
+    <div class="mycontainer">
         <div class="panel left"></div>
         <ui-view class="panel right"></ui-view>
     </div>

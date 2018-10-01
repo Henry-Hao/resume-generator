@@ -2,11 +2,19 @@ define([
     'angular',
     'ui-bootstrap',
     'ngRoute',
+    'ngScroll',
+    'material'
 ],function(angular){
     'use strict';
 
     // initialize angular
-    var app = angular.module('myApp',['ui.bootstrap','ui.router']);
+    var app = angular.module('myApp',[
+        'ui.bootstrap',
+        'ui.router',
+        'duScroll',
+        'ngMaterial',
+        'ngMessages'
+    ]);
 
     // basic configurations of fileters, routers, etc.
     app.config(function ($controllerProvider, $filterProvider,$urlRouterProvider,$stateProvider) {

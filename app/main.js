@@ -3,6 +3,7 @@ define([
     'ui-bootstrap',
     'ngRoute',
     'ngScroll',
+    'messages',
     'material'
 ],function(angular){
     'use strict';
@@ -12,8 +13,8 @@ define([
         'ui.bootstrap',
         'ui.router',
         'duScroll',
-        'ngMaterial',
-        'ngMessages'
+        'ngMessages',
+        'ngMaterial'
     ]);
 
     // basic configurations of fileters, routers, etc.

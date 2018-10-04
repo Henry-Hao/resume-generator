@@ -11,9 +11,11 @@
     <script src="./node_modules/requirejs/require.js" data-main="./config.js"></script>
 </head>
 <body data-ng-controller="indexController">
-    <div class="mycontainer">
-        <div class="panel left"></div>
-        <ui-view class="panel right"></ui-view>
+
+    <div layout="row" style="min-height:700px">
+        <div flex="40">1234</div>
+        <md-divider></md-divider>
+        <ui-view flex="60"></ui-view>
     </div>
     
 </body>

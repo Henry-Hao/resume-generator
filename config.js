@@ -52,7 +52,14 @@ require(['jquery'],function(jquery){
         'app/controller/indexController',
         'app/controller/resumeController',
         
-        //component
+        // component
+
+        // data
+        'app/data/skill_group',
+        'app/data/education',
+        'app/data/reward',
+        'app/data/project',
+        'app/data/resume',
 
     ],function(angular){
         // bootstrap

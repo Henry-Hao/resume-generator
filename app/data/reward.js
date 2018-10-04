@@ -1,5 +1,9 @@
-function reward() {
-    var time = "",
-        title = "",
-        organization = "";
+function reward({time,title,organization}) {
+
+
+    this.time = time;
+    this.title = title;
+    this.organization = organization;
+
+    
 }

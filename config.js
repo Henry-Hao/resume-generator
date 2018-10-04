@@ -53,6 +53,7 @@ require(['jquery'],function(jquery){
         'app/controller/resumeController',
         
         // component
+        'app/component/educationInputComponent',
 
         // data
         'app/data/skill_group',

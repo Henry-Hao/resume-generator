@@ -1,4 +1,4 @@
-function education({start_time, end_time,name,city="",province="",country="",gpa=""}){
+function Education({start_time, end_time,name,city="",province="",country="",gpa=""}){
     
     this.start_time = start_time;
     this.end_time = end_time;

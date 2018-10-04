@@ -1,23 +1,23 @@
-<form name="form" layout="column" ng-cloak class="md-inline-form" layout-padding>
+<form name="form" layout="column" ng-cloak class="md-inline-form"  md-theme="docs-dark"  layout-padding>
 	<!-- BasicInfo -->
-	<md-content md-theme="docs-dark" layout-gt-sm="column">
-		<label>BasicInfo</label>
-		<div layout="row">
-			<md-input-container flex="33">
+	<md-content layout-gt-sm="column">
+		<md-subheader>Basic Info</md-subheader>
+		<div layout-sm="column" layout-xs="column"  layout>
+			<md-input-container flex-gt-sm="33">
 				<label>Title</label>
 				<input name="name" ng-model="obj.basic.name" class="md-hue-1" required md-no-asterisk>
 				<div ng-messages="form.name.$error">
 					<div ng-message="required">This field is required!</div>
 				</div>
 			</md-input-container>
-			<md-input-container flex="33">
+			<md-input-container flex-gt-sm="33">
 				<label>Email</label>
 				<input name="email" ng-model="obj.basic.email" type="email">
 				<div ng-messages="form.email.$error">
 					<div ng-message="email">Not a valid email!</div>
 				</div>
 			</md-input-container>
-			<md-input-container flex="33">
+			<md-input-container flex-gt-sm="33">
 				<label>Phone</label>
 				<input name="phone" ng-model="obj.basic.phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
 				<div ng-messages="form.phone.$error">
@@ -25,8 +25,8 @@
 				</div>
 			</md-input-container>
 		</div>
-		<div layout="row">
-			<md-input-container flex="33">
+		<div layout-sm="column" layout-xs="column" layout>
+			<md-input-container flex-gt-sm="33">
 				<label>Country</label>
 				<md-select ng-model="selected_country" placeholder="Select a country ">
 					<md-select-header>
@@ -40,7 +40,7 @@
 				</md-select>
 			</md-input-container>
 
-			<md-input-container flex="33">
+			<md-input-container flex-gt-sm="33">
 				<label>Country</label>
 				<md-select ng-model="selected_province" placeholder="Select a province">
 					<md-select-header>
@@ -54,7 +54,7 @@
 				</md-select>
 			</md-input-container>
 
-			<md-input-container flex="33">
+			<md-input-container flex-gt-sm="33">
 				<label>Country</label>
 				<md-select ng-model="selected_city" placeholder="Select a city">
 					<md-select-header>
@@ -68,5 +68,14 @@
 				</md-select>
 			</md-input-container>
 		</div>
+	</md-content>
+
+	<!-- Education -->
+	<md-content layout-gt-sm="column" id="education_list">
+		<md-subheader>
+			Education
+		</md-subheader>
+		<education-input add-education="addEducation(education)"></education-input>
+
 	</md-content>
 </form>

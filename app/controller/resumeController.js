@@ -6,14 +6,11 @@ define([
     .config(function($mdThemingProvider) {
         // Configure a dark theme with primary foreground yellow
         $mdThemingProvider.theme('docs-dark', 'default')
-          .primaryPalette('green',{
-              'default': '400',
-              'hue-1': 'A100'
-          });
+          .primaryPalette('green');
         //   .dark();
     
     })
-    .controller('resumeController',function($scope){
+    .controller('resumeController',function($scope, $compile){
         $scope.header = 'Basic';
         $scope.obj = new Resume();
         $scope.countries = ['USA','CHINA','FRANCE','CANADA'];
@@ -80,6 +77,11 @@ define([
         $scope.$watch('selected_province',function(){
             $scope.selected_city = "";
         });
+
+        $scope.addEducation = function(education){
+            $scope.obj.education_list.push(education);
+            angular.element("#education_list").append($compile(`<education-input addEducation="addEducation(education)"></education-input>`)($scope.$new(true)))
+        }
 
 
     });

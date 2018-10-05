@@ -11,7 +11,7 @@ function Resume(){
     this.education_list = [
         // new education();
     ];
-    this.skill_groups = [
+    this.skill_group = [
         // new skill_group();
     ];
     this.projects = [

@@ -1,0 +1,23 @@
+<div>
+    <ng-form name="form" novalidate>
+        <div layout-sm="column" layout-xs="column" layout >
+            <md-input-container flex-gt-sm="20">
+                <label>Category(Optional)</label>
+                <input name="category" ng-model="obj.category">
+            </md-input-container>
+            <md-input-container flex-gt-sm="80">
+                <label>Skills</label>
+                <input name="skills" ng-model="obj.skills" required md-no-asterisk>
+                <div class="hint">Please use comma as seperator</div>
+                <div ng-messages="form.skills.$error" ng-show="form.$invalid" >
+                    <div ng-message="required">This filed is requied</div>
+                </div >
+            </md-input-container>
+        
+            <md-input-container flex-gt-sm="10" >
+                <md-button class="md-raised md-primary" ng-click="addFn()"ng-show="isEnabled">Add</md-button>
+                <md-button class="md-raised md-warn" ng-click="removeFn()" ng-show="!isEnabled">Remove</md-button>
+            </md-input-container>
+    </div>      
+    </ng-form>
+</div>

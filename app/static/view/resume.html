@@ -28,7 +28,7 @@
 		<div layout-sm="column" layout-xs="column" layout>
 			<md-input-container flex-gt-sm="33">
 				<label>Country</label>
-				<md-select ng-model="selected_country" placeholder="Select a country ">
+				<md-select name="country" ng-model="selected_country" placeholder="Select a country ">
 					<md-select-header>
 						<input 
 							type="search" 
@@ -38,11 +38,14 @@
 					</md-select-header>
 					<md-option ng-value="country" ng-repeat="country in getCountries() | filter:countryTerm">{{ country }}</md-option>
 				</md-select>
+				<div ng-messages="form.country.$error">
+					<div ng-message="required">This field is required!</div>
+				</div>
 			</md-input-container>
 
 			<md-input-container flex-gt-sm="33">
 				<label>Country</label>
-				<md-select ng-model="selected_province" placeholder="Select a province">
+				<md-select name="province" ng-model="selected_province" placeholder="Select a province">
 					<md-select-header>
 						<input 
 							type="search" 
@@ -52,11 +55,14 @@
 					</md-select-header>
 					<md-option ng-value="province" ng-repeat="province in getProvinces() | filter:provinceTerm">{{ province }}</md-option>
 				</md-select>
+				<div ng-messages="form.province.$error">
+					<div ng-message="required">This field is required!</div>
+				</div>
 			</md-input-container>
 
 			<md-input-container flex-gt-sm="33">
 				<label>Country</label>
-				<md-select ng-model="selected_city" placeholder="Select a city">
+				<md-select name="city" ng-model="selected_city" placeholder="Select a city">
 					<md-select-header>
 						<input 
 							type="search" 
@@ -66,17 +72,22 @@
 					</md-select-header>
 					<md-option ng-value="city" ng-repeat="city in getCities() | filter:cityTerm">{{ city }}</md-option>
 				</md-select>
+				<div ng-messages="form.city.$error">
+					<div ng-message="required">This field is required!</div>
+				</div>
 			</md-input-container>
 		</div>
 	</md-content>
 
 	<!-- Education -->
 	<md-content layout-gt-sm="column" id="education_list">
-		<md-subheader>
-			Education
-		</md-subheader>
+		<md-subheader>Education</md-subheader>
 		<education-input education="resume.education_list"></education-input>
-		
+	</md-content>
 
+	<!-- Skill -->
+	<md-content layout-gt-sm="column" id="skill_group">
+		<md-subheader>Skills</md-subheader>
+		<skill-group skills="resume.skill_group"></skill-group>
 	</md-content>
 </form>

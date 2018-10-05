@@ -1,4 +1,4 @@
-function skill_group({title=""}){
+function Skill_group(){
 
     /**
      * eg.
@@ -12,13 +12,13 @@ function skill_group({title=""}){
      *  
      */
 
-    this.title = title;
-    this.skills = new hashset();// can be empty
+    this.category = "";
+    this.skills = ""// can be empty
 
-    this.addSkills = function(skills){
-        skills.split(',').forEach(function(index, value){
-            this.skills.add(value);    
-        })
-    }
+    // this.addSkills = function(skills){
+    //     skills.split(',').forEach(function(index, value){
+    //         this.skills.add(value);    
+    //     })
+    // }
 
 }

@@ -1,9 +1,9 @@
-<div style="border:1px solid">
-    <ng-form name="form">
+<div>
+    <ng-form name="form" novalidate>
         <div layout-sm="column" layout-xs="column" layout>
             <md-input-container flex-gt-sm="33">
                 <label>Name</label>
-                <input name="name" ng-model="obj.name" required>
+                <input name="name" ng-model="obj.name" md-no-asterisk required>
                 <div ng-messages="form.name.$error" ng-show="form.$invalid">
                     <div ng-message="required">This field is required!</div>
                 </div>
@@ -11,7 +11,7 @@
         
             <md-input-container flex-gt-sm="20">
                 <label>Start Date</label>
-                <md-datepicker name="start_date" ng-model="obj.start_date" md-max-date="end_date" md-open-on-focus="true" required></md-datepicker>
+                <md-datepicker name="start_date" ng-model="obj.start_date" md-max-date="end_date" md-open-on-focus="true" md-no-asterisk required></md-datepicker>
                 <div ng-messages="form.start_date.$error" ng-show="form.$invalid">
                     <div ng-message="required">This field is required!</div>
                 </div>
@@ -19,14 +19,14 @@
         
             <md-input-container flex-gt-sm="20">
                 <label>End Date</label>
-                <md-datepicker name="end_date" ng-model="obj.end_date" md-min-date="start_date" md-open-on-focus="true" required></md-datepicker>
+                <md-datepicker name="end_date" ng-model="obj.end_date" md-min-date="start_date" md-open-on-focus="true" md-no-asterisk required></md-datepicker>
                 <div ng-messages="form.end_date.$error" ng-show="form.$invalid">
                     <div ng-message="required">This field is required!</div>
                 </div>
             </md-input-container>
 
             <md-input-container flex-gt-sm="33">
-                <label>GPA</label>
+                <label>GPA(Optional)</label>
                 <input name="gpa" ng-model="obj.gpa" pattern="\d+(\.\d+)?/\d+(\.\d+)?">
                 <div ng-messages="form.gpa.$error">
                     <div ng-message="pattern">Eg:4.0/4.0</div>
@@ -36,18 +36,18 @@
             
         <div layout-sm="column" layout-xs="column" layout>
             <md-input-container flex-gt-sm="33">
-                <label>Country</label>
+                <label>Country(Optional)</label>
                 <input name="country" ng-model="obj.country">
             </md-input-container>
 
             <md-input-container flex-gt-sm="33">
-                <label>Province</label>
+                <label>Province(Optional)</label>
                 <input name="province" ng-model="obj.province">
             </md-input-container>
 
             <md-input-container flex-gt-sm="33">
-                <label>City</label>
-                <input name="City" ng-model="obj.city">
+                <label>City(Optional)</label>
+                <input name="city" ng-model="obj.city">
             </md-input-container>
         </div>
 

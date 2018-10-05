@@ -3,7 +3,7 @@
         <div layout-sm="column" layout-xs="column" layout>
             <md-input-container flex-gt-sm="33">
                 <label>Name</label>
-                <input name="name" ng-model="name" required>
+                <input name="name" ng-model="obj.name" required>
                 <div ng-messages="form.name.$error">
                     <div ng-message="required">This field is required!</div>
                 </div>
@@ -11,7 +11,7 @@
         
             <md-input-container flex-gt-sm="20">
                 <label>Start Date</label>
-                <md-datepicker name="start_date" ng-model="start_date" md-max-date="end_date" md-open-on-focus="true" required></md-datepicker>
+                <md-datepicker name="start_date" ng-model="obj.start_date" md-max-date="end_date" md-open-on-focus="true" required></md-datepicker>
                 <div ng-messages="form.start_date.$error">
                     <div ng-message="required">This field is required!</div>
                 </div>
@@ -19,7 +19,7 @@
         
             <md-input-container flex-gt-sm="20">
                 <label>End Date</label>
-                <md-datepicker name="end_date" ng-model="end_date" md-min-date="start_date" md-open-on-focus="true" required></md-datepicker>
+                <md-datepicker name="end_date" ng-model="obj.end_date" md-min-date="start_date" md-open-on-focus="true" required></md-datepicker>
                 <div ng-messages="form.end_date.$error">
                     <div ng-message="required">This field is required!</div>
                 </div>
@@ -27,7 +27,7 @@
 
             <md-input-container flex-gt-sm="33">
                 <label>GPA</label>
-                <input name="gpa" ng-model="gpa" pattern="\d+(\.\d+)?/\d+(\.\d+)?">
+                <input name="gpa" ng-model="obj.gpa" pattern="\d+(\.\d+)?/\d+(\.\d+)?">
                 <div ng-messages="form.gpa.$error">
                     <div ng-message="pattern">Eg:4.0/4.0</div>
                 </div>
@@ -37,21 +37,21 @@
         <div layout-sm="column" layout-xs="column" layout>
             <md-input-container flex-gt-sm="33">
                 <label>Country</label>
-                <input name="country" ng-model="country">
+                <input name="country" ng-model="obj.country">
             </md-input-container>
 
             <md-input-container flex-gt-sm="33">
                 <label>Province</label>
-                <input name="province" ng-model="province">
+                <input name="province" ng-model="obj.province">
             </md-input-container>
 
             <md-input-container flex-gt-sm="33">
                 <label>City</label>
-                <input name="City" ng-model="city">
+                <input name="City" ng-model="obj.city">
             </md-input-container>
         </div>
 
-        <md-button class="md-raised md-primary" ng-click="addFn()"ng-show="isenabled">Add</md-button>
+        <md-button class="md-raised md-primary" ng-click="addFn(); isenabled=!isenabled;"ng-show="isenabled">Add</md-button>
         <md-button class="md-raised md-warn" ng-click="removeFn()" ng-show="!isenabled">Remove</md-button>
                 
     </ng-form>

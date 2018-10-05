@@ -5,21 +5,21 @@
 		<div layout-sm="column" layout-xs="column"  layout>
 			<md-input-container flex-gt-sm="33">
 				<label>Title</label>
-				<input name="name" ng-model="obj.basic.name" class="md-hue-1" required md-no-asterisk>
+				<input name="name" ng-model="resume.basic.name" class="md-hue-1" required md-no-asterisk>
 				<div ng-messages="form.name.$error">
 					<div ng-message="required">This field is required!</div>
 				</div>
 			</md-input-container>
 			<md-input-container flex-gt-sm="33">
 				<label>Email</label>
-				<input name="email" ng-model="obj.basic.email" type="email">
+				<input name="email" ng-model="resume.basic.email" type="email">
 				<div ng-messages="form.email.$error">
 					<div ng-message="email">Not a valid email!</div>
 				</div>
 			</md-input-container>
 			<md-input-container flex-gt-sm="33">
 				<label>Phone</label>
-				<input name="phone" ng-model="obj.basic.phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+				<input name="phone" ng-model="resume.basic.phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
 				<div ng-messages="form.phone.$error">
 					<div ng-message="pattern">Not a valid phonenumber!</div>
 				</div>
@@ -75,7 +75,8 @@
 		<md-subheader>
 			Education
 		</md-subheader>
-		<education-input add-education="addEducation()" education="obj.education_list"></education-input>
+		<education-input education="resume.education_list"></education-input>
+		
 
 	</md-content>
 </form>

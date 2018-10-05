@@ -12,7 +12,7 @@ define([
     })
     .controller('resumeController',function($scope, $compile){
         $scope.header = 'Basic';
-        $scope.obj = new Resume();
+        $scope.resume = new Resume();
         $scope.countries = ['USA','CHINA','FRANCE','CANADA'];
         $scope.places = {
             'USA': {
@@ -78,10 +78,6 @@ define([
             $scope.selected_city = "";
         });
 
-        $scope.addEducation = function(education){
-            // $scope.obj.education_list.push(education);
-            angular.element("#education_list").append($compile(`<education-input add-education="addEducation()" education="obj.education_list"></education-input>`)($scope));
-        }
 
     });
 });

@@ -1,63 +1,34 @@
 define([
-    'main',
+    'main'
 ], function(ngModule) {
     'use strict';
-    return ngModule.component("educationInput",{
-        restrict: 'E',
-        bindings:{
-            addEducation: '&',
-            removeEducation:'&',
-            education:'='
-        },
-        templateUrl: '/app/static/view/component/educationInput.html',
-        controller: function($scope, $compile){
-            $scope.name;
-            $scope.start_date;
-            $scope.end_date;    
-            $scope.country;
-            $scope.province;
-            $scope.city;
-            $scope.gpa;
-            $scope.obj;
-            $scope.isenabled = true;
+    return ngModule.directive("educationInput",function($compile){
+        return {
+            templateUrl: '/app/static/view/component/educationInput.html',
+            restrict: 'E',
+            scope:{
+                // only inherit education_list from the parent
+                // thus all the 'scope.education_list' will refer to the same object defined in the resumeController
+                education_list: '=education'
+            },
+            link: function(scope, element, attrs){
+                scope.obj = new Education();
+                // this variable will be independent from the parent
+                scope.isenabled = true;
 
-            // $scope.addFn = function(){
-            //     $scope.$ctrl.addEducation({
-            //         education: new Education({
-            //                 start_time:$scope.start_date,
-            //                 end_time: $scope.end_date,
-            //                 name: $scope.name,
-            //                 city: $scope.city,
-            //                 province: $scope.province,
-            //                 country: $scope.country,
-            //                 gpa: $scope.gpa
-            //             })
-            //     });
-            //     $scope.isenabled = false;
-            // }
+                // put all the DOM manipulations in directives
+                scope.addFn = function(){
+                    scope.education_list.push(scope.obj);
+                    angular.element("#education_list").append($compile(`<education-input education="education_list"></education-input>`)(scope));
+                }
 
-            $scope.addFn = function(){
-                $scope.obj = new Education({
-                    start_time:$scope.start_date,
-                    end_time: $scope.end_date,
-                    name: $scope.name,
-                    city: $scope.city,
-                    province: $scope.province,
-                    country: $scope.country,
-                    gpa: $scope.gpa
-                });
-                $scope.$ctrl.education.push($scope.obj);
-                $scope.isenabled = false;
-                $scope.$ctrl.addEducation();
+                scope.removeFn = function(){
+                    var idx = scope.education_list.indexOf(scope.obj);
+                    if(idx >= 0)
+                    scope.education_list.splice(idx, 1);
+                        angular.element('#education_list education-input')[idx].remove();
+                }
             }
-
-            $scope.removeFn = function(){
-                var idx = $scope.$ctrl.education.indexOf($scope.obj);
-                if(idx >= 0)
-                    $scope.$ctrl.education.splice(idx, 1);
-                    angular.element('#education_list education-input')[idx].remove();
-            }
-
         }
-    });
+    })
 });

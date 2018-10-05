@@ -14,12 +14,17 @@ define([
             link: function(scope, element, attrs){
                 scope.obj = new Education();
                 // this variable will be independent from the parent
-                scope.isenabled = true;
+                scope.isEnabled = true;
 
                 // put all the DOM manipulations in directives
                 scope.addFn = function(){
-                    scope.education_list.push(scope.obj);
-                    angular.element("#education_list").append($compile(`<education-input education="education_list"></education-input>`)(scope));
+                    if(scope.form.$valid){
+                        scope.education_list.push(scope.obj);
+                        angular.element("#education_list").append($compile(`<education-input education="education_list"></education-input>`)(scope));
+                        scope.isEnabled = !scope.isEnabled;
+                    }
+                    // TODO:
+                    // trigger ngMessage validations
                 }
 
                 scope.removeFn = function(){

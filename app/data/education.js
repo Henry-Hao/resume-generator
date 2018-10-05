@@ -11,8 +11,8 @@
 // }
 function Education(){
     
-    this.start_time = "";
-    this.end_time = "";
+    this.start_date = "";
+    this.end_date = "";
     this.name = "";
     this.city = "";
     this.province = "";

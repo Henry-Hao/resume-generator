@@ -3,7 +3,7 @@
         <div layout-sm="column" layout-xs="column" layout>
             <md-input-container flex-gt-sm="33">
                 <label>Name</label>
-                <input name="name" ng-model="obj.name" md-no-asterisk required>
+                <input name="name" ng-model="obj.name" required>
                 <div ng-messages="form.name.$error" ng-show="form.$invalid">
                     <div ng-message="required">This field is required!</div>
                 </div>
@@ -11,7 +11,7 @@
         
             <md-input-container flex-gt-sm="20">
                 <label>Start Date</label>
-                <md-datepicker name="start_date" ng-model="obj.start_date" md-max-date="end_date" md-open-on-focus="true" md-no-asterisk required></md-datepicker>
+                <md-datepicker name="start_date" ng-model="obj.start_date" md-max-date="obj.end_date" md-open-on-focus="true" required></md-datepicker>
                 <div ng-messages="form.start_date.$error" ng-show="form.$invalid">
                     <div ng-message="required">This field is required!</div>
                 </div>
@@ -19,7 +19,7 @@
         
             <md-input-container flex-gt-sm="20">
                 <label>End Date</label>
-                <md-datepicker name="end_date" ng-model="obj.end_date" md-min-date="start_date" md-open-on-focus="true" md-no-asterisk required></md-datepicker>
+                <md-datepicker name="end_date" ng-model="obj.end_date" md-min-date="obj.start_date" md-open-on-focus="true" required></md-datepicker>
                 <div ng-messages="form.end_date.$error" ng-show="form.$invalid">
                     <div ng-message="required">This field is required!</div>
                 </div>

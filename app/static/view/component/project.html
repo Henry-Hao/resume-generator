@@ -1,0 +1,66 @@
+<div>
+    <ng-form name="form" novalidate>
+        <div layout-sm="column" layout-xs="column" layout >
+            <md-input-container flex-gt-sm="33">
+                <label>Title</label>
+                <input name="title" ng-model="obj.title" required>
+                <div ng-messages="form.title.$error" ng-show="form.$invalid">
+                    <div ng-message="required">This field is required!</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex-gt-sm="20">
+                <label>Start Date</label>
+                <md-datepicker name="start_date" ng-model="obj.start_date" md-max-date="obj.end_date" md-open-on-focus="true" required></md-datepicker>
+                <div ng-messages="form.start_date.$error" ng-show="form.$invalid">
+                    <div ng-message="required">This field is required!</div>
+                </div>
+            </md-input-container>
+        
+            <md-input-container flex-gt-sm="20">
+                <label>End Date</label>
+                <md-datepicker name="end_date" ng-model="obj.end_date" md-min-date="obj.start_date" md-open-on-focus="true" required></md-datepicker>
+                <div ng-messages="form.end_date.$error" ng-show="form.$invalid">
+                    <div ng-message="required">This field is required!</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container flex-gt-sm="33">
+                <label>organization(Optional)</label>
+                <input name="organization" ng-model="obj.organization">
+            </md-input-container>
+        </div> 
+        <div layout="column">
+            <md-input-container>
+                <label>Related Skills(Optional)</label>
+                <input name="related_skills" ng-model="obj.related_skills" md-maxlength="80">
+                <div ng-messages="form.related_skills.$error" ng-show="form.related_skills.$dirty">
+                    <div ng-message="md-maxlength">No more than 80 characters</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container>
+                <label>Responsibily</label>
+                <textarea name="responsibility" ng-model="obj.responsibility" md-maxlength="200" md-select-on-focus rows="3" md-no-resize required></textarea>
+                <div ng-messages="form.responsibility.$error" ng-show="form.responsibility.$dirty">
+                    <div ng-message="md-maxlength">No more than 200 characters</div>
+                    <div ng-message="required">This field is required!</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container>
+                <label>Summary</label>
+                <textarea name="summary" ng-model="obj.summary" md-maxlength="500" md-select-on-focus rows="3" md-no-resize required></textarea>
+                <div ng-messages="form.summary.$error" ng-show="form.summary.$dirty">
+                    <div ng-message="md-maxlength">No more than 500 characters</div>
+                    <div ng-message="required">This field is required!</div>
+                </div>
+            </md-input-container>
+        </div>
+        
+            <md-input-container flex-gt-sm="10" >
+                <md-button class="md-raised md-primary" ng-click="addFn()"ng-show="isEnabled">Add</md-button>
+                <md-button class="md-raised md-warn" ng-click="removeFn()" ng-show="!isEnabled">Remove</md-button>
+            </md-input-container>
+         
+    </ng-form>
+</div>

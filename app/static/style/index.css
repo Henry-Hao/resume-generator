@@ -11,7 +11,10 @@
     color: grey; 
 }
 
-education-input > div, skill-group > div{
+education-input > div, 
+skill-group > div,
+project > div
+{
     margin-bottom:6px;
     border:1px solid rgba(0,0,0,0.3);
 }

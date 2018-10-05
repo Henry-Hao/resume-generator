@@ -79,10 +79,9 @@ define([
         });
 
         $scope.addEducation = function(education){
-            $scope.obj.education_list.push(education);
-            angular.element("#education_list").append($compile(`<education-input addEducation="addEducation(education)"></education-input>`)($scope.$new(true)))
+            // $scope.obj.education_list.push(education);
+            angular.element("#education_list").append($compile(`<education-input add-education="addEducation()" education="obj.education_list"></education-input>`)($scope));
         }
-
 
     });
 });

@@ -13,8 +13,22 @@
 
 education-input > div, 
 skill-group > div,
-project > div
+project > div,
+reward > div
 {
     margin-bottom:6px;
     border:1px solid rgba(0,0,0,0.3);
+}
+
+#nav-bar {
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    width: 100%;
+    background: #fff;
+}
+
+.padding-top-50{
+    padding-top:50px;
+    
 }

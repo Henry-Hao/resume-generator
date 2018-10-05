@@ -1,100 +1,117 @@
-<form name="form" layout="column" ng-cloak class="md-inline-form"  md-theme="docs-dark"  layout-padding>
-	<!-- BasicInfo -->
-	<md-content layout-gt-sm="column">
-		<md-subheader>Basic Info</md-subheader>
-		<div layout-sm="column" layout-xs="column"  layout>
-			<md-input-container flex-gt-sm="33">
-				<label>Title</label>
-				<input name="name" ng-model="resume.basic.name" class="md-hue-1" required md-no-asterisk>
-				<div ng-messages="form.name.$error">
-					<div ng-message="required">This field is required!</div>
-				</div>
-			</md-input-container>
-			<md-input-container flex-gt-sm="33">
-				<label>Email</label>
-				<input name="email" ng-model="resume.basic.email" type="email">
-				<div ng-messages="form.email.$error">
-					<div ng-message="email">Not a valid email!</div>
-				</div>
-			</md-input-container>
-			<md-input-container flex-gt-sm="33">
-				<label>Phone</label>
-				<input name="phone" ng-model="resume.basic.phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
-				<div ng-messages="form.phone.$error">
-					<div ng-message="pattern">Not a valid phonenumber!</div>
-				</div>
-			</md-input-container>
-		</div>
-		<div layout-sm="column" layout-xs="column" layout>
-			<md-input-container flex-gt-sm="33">
-				<label>Country</label>
-				<md-select name="country" ng-model="selected_country" placeholder="Select a country ">
-					<md-select-header>
-						<input 
-							type="search" 
-							ng-model="countryTerm" 
-							ng-keydown="$event.stopPropagation()"
-							placeholder="Search a country">
-					</md-select-header>
-					<md-option ng-value="country" ng-repeat="country in getCountries() | filter:countryTerm">{{ country }}</md-option>
-				</md-select>
-				<div ng-messages="form.country.$error">
-					<div ng-message="required">This field is required!</div>
-				</div>
-			</md-input-container>
-
-			<md-input-container flex-gt-sm="33">
-				<label>Country</label>
-				<md-select name="province" ng-model="selected_province" placeholder="Select a province">
-					<md-select-header>
-						<input 
-							type="search" 
-							ng-model="provinceTerm" 
-							ng-keydown="$event.stopPropagation()"
-							placeholder="Search a province">
-					</md-select-header>
-					<md-option ng-value="province" ng-repeat="province in getProvinces() | filter:provinceTerm">{{ province }}</md-option>
-				</md-select>
-				<div ng-messages="form.province.$error">
-					<div ng-message="required">This field is required!</div>
-				</div>
-			</md-input-container>
-
-			<md-input-container flex-gt-sm="33">
-				<label>Country</label>
-				<md-select name="city" ng-model="selected_city" placeholder="Select a city">
-					<md-select-header>
-						<input 
-							type="search" 
-							ng-model="searchcity" 
-							ng-keydown="$event.stopPropagation()"
-							placeholder="Search a city">
-					</md-select-header>
-					<md-option ng-value="city" ng-repeat="city in getCities() | filter:cityTerm">{{ city }}</md-option>
-				</md-select>
-				<div ng-messages="form.city.$error">
-					<div ng-message="required">This field is required!</div>
-				</div>
-			</md-input-container>
-		</div>
+<div layout="column">
+	<md-content id="nav-bar">
+		<md-nav-bar>
+			<md-nav-item md-nav-href="#basic" name="Basic">Basic</md-nav-item>
+			<md-nav-item md-nav-href="#education_list" name="Education">Education</md-nav-item>
+			<md-nav-item md-nav-href="#skill_group" name="Skill">Skill</md-nav-item>
+			<md-nav-item md-nav-href="#project_list" name="Project">Project</md-nav-item>
+			<md-nav-item md-nav-href="#reward_list" name="Reward">Reward</md-nav-item>
+		</md-nav-bar>
 	</md-content>
 
-	<!-- Education -->
-	<md-content layout-gt-sm="column" id="education_list">
-		<md-subheader>Education</md-subheader>
-		<education-input education="resume.education_list"></education-input>
-	</md-content>
+	<form name="form" layout="column" ng-cloak class="md-inline-form"  md-theme="docs-dark"  layout-padding>
+		<!-- BasicInfo -->
+		<md-content layout-gt-sm="column" id="basic" class="padding-top-50">
+			<md-subheader>Basic Info</md-subheader>
+			<div layout-sm="column" layout-xs="column"  layout>
+				<md-input-container flex-gt-sm="33">
+					<label>Title</label>
+					<input name="name" ng-model="resume.basic.name" class="md-hue-1" required md-no-asterisk>
+					<div ng-messages="form.name.$error">
+						<div ng-message="required">This field is required!</div>
+					</div>
+				</md-input-container>
+				<md-input-container flex-gt-sm="33">
+					<label>Email</label>
+					<input name="email" ng-model="resume.basic.email" type="email">
+					<div ng-messages="form.email.$error">
+						<div ng-message="email">Not a valid email!</div>
+					</div>
+				</md-input-container>
+				<md-input-container flex-gt-sm="33">
+					<label>Phone</label>
+					<input name="phone" ng-model="resume.basic.phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+					<div ng-messages="form.phone.$error">
+						<div ng-message="pattern">Not a valid phonenumber!</div>
+					</div>
+				</md-input-container>
+			</div>
+			<div layout-sm="column" layout-xs="column" layout>
+				<md-input-container flex-gt-sm="33">
+					<label>Country</label>
+					<md-select name="country" ng-model="selected_country" placeholder="Select a country ">
+						<md-select-header>
+							<input 
+								type="search" 
+								ng-model="countryTerm" 
+								ng-keydown="$event.stopPropagation()"
+								placeholder="Search a country">
+						</md-select-header>
+						<md-option ng-value="country" ng-repeat="country in getCountries() | filter:countryTerm">{{ country }}</md-option>
+					</md-select>
+					<div ng-messages="form.country.$error">
+						<div ng-message="required">This field is required!</div>
+					</div>
+				</md-input-container>
 
-	<!-- Skill -->
-	<md-content layout-gt-sm="column" id="skill_group">
-		<md-subheader>Skills</md-subheader>
-		<skill-group skills="resume.skill_group"></skill-group>
-	</md-content>
+				<md-input-container flex-gt-sm="33">
+					<label>Country</label>
+					<md-select name="province" ng-model="selected_province" placeholder="Select a province">
+						<md-select-header>
+							<input 
+								type="search" 
+								ng-model="provinceTerm" 
+								ng-keydown="$event.stopPropagation()"
+								placeholder="Search a province">
+						</md-select-header>
+						<md-option ng-value="province" ng-repeat="province in getProvinces() | filter:provinceTerm">{{ province }}</md-option>
+					</md-select>
+					<div ng-messages="form.province.$error">
+						<div ng-message="required">This field is required!</div>
+					</div>
+				</md-input-container>
 
-	<!-- Project-->
-	<!-- Skill -->
-	<md-content layout-gt-sm="column" id="project_list">
-		<md-subheader>Projects</md-subheader>
-		<project projects="resume.projects"></project>
-	</md-content>
-</form>
+				<md-input-container flex-gt-sm="33">
+					<label>Country</label>
+					<md-select name="city" ng-model="selected_city" placeholder="Select a city">
+						<md-select-header>
+							<input 
+								type="search" 
+								ng-model="searchcity" 
+								ng-keydown="$event.stopPropagation()"
+								placeholder="Search a city">
+						</md-select-header>
+						<md-option ng-value="city" ng-repeat="city in getCities() | filter:cityTerm">{{ city }}</md-option>
+					</md-select>
+					<div ng-messages="form.city.$error">
+						<div ng-message="required">This field is required!</div>
+					</div>
+				</md-input-container>
+			</div>
+		</md-content>
+
+		<!-- Education -->
+		<md-content layout-gt-sm="column" id="education_list" class="padding-top-50">
+			<md-subheader>Education</md-subheader>
+			<education-input education="resume.education_list"></education-input>
+		</md-content>
+
+		<!-- Skill -->
+		<md-content layout-gt-sm="column" id="skill_group" class="padding-top-50">
+			<md-subheader>Skills</md-subheader>
+			<skill-group skills="resume.skill_group"></skill-group>
+		</md-content>
+
+		<!-- Project-->
+		<md-content layout-gt-sm="column" id="project_list" class="padding-top-50">
+			<md-subheader>Projects</md-subheader>
+			<project projects="resume.projects"></project>
+		</md-content>
+
+		<!-- Reward-->
+		<md-content layout-gt-sm="column" id="reward_list" class="padding-top-50">
+			<md-subheader>Rewards</md-subheader>
+			<reward rewards="resume.rewards"></reward>
+		</md-content>
+	</form>
+</div>

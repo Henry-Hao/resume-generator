@@ -56,6 +56,7 @@ require(['jquery'],function(jquery){
         'app/component/educationInputComponent',
         'app/component/skillGroupComponent',
         'app/component/projectComponent',
+        'app/component/rewardComponent',
 
         // data
         'app/data/skill_group',

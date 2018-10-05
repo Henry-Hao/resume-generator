@@ -2,25 +2,32 @@ define([
     'main'
 ], function(ngModule) {
     'use strict';
-    return ngModule.directive("project",function($compile){
+    return ngModule
+    
+    .directive("reward",function($compile){
         return {
-            templateUrl: '/app/static/view/component/project.html',
+            templateUrl: '/app/static/view/component/reward.html',
             restrict: 'E',
             scope:{
                 // only inherit education_list from the parent
                 // thus all the 'scope.education_list' will refer to the same object defined in the resumeController
-                project_list: '=projects'
+                reward_list: '=rewards'
             },
             link: function(scope, element, attrs){
-                scope.obj = new Skill_group();
+                
+
+                scope.open = false;
+                scope.obj = new Reward();
                 // this variable will be independent from the parent
                 scope.isEnabled = true;
+
+                scope.now = new Date();
 
                 // put all the DOM manipulations in directives
                 scope.addFn = function(){
                     if(scope.form.$valid){
-                        scope.project_list.push(scope.obj);
-                        angular.element("#skill_group").append($compile(`<project projects="project_list"></project>`)(scope));
+                        scope.reward_list.push(scope.obj);
+                        angular.element("#reward_list").append($compile(`<reward rewards="reward_list"></reward>`)(scope));
                         scope.isEnabled = !scope.isEnabled;
                     }
                     // TODO:
@@ -28,10 +35,10 @@ define([
                 }
 
                 scope.removeFn = function(){
-                    var idx = scope.project_list.indexOf(scope.obj);
+                    var idx = scope.reward_list.indexOf(scope.obj);
                     if(idx >= 0)
-                    scope.project_list.splice(idx, 1);
-                        angular.element('#project_list project')[idx].remove();
+                    scope.reward_list.splice(idx, 1);
+                        angular.element('#reward_list reward')[idx].remove();
                 }
             }
         }

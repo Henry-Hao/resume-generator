@@ -1,0 +1,33 @@
+<div>
+    <ng-form name="form" novalidate>
+        <div layout-sm="column" layout-xs="column" layout >
+            <md-input-container flex-gt-sm="33">
+                <label>Title</label>
+                <input name="title" ng-model="obj.title" required>
+                <div ng-messages="form.title.$error" ng-show="form.$invalid">
+                    <div ng-message="required">This field is required!</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex-gt-sm="20">
+                <label>Time</label>
+                <md-datepicker id="dd" name="time"md-mode="month" readonly="true" ng-model="obj.time" md-max-date="now" md-open-on-focus="true" required></md-datepicker>
+                <div ng-messages="form.time.$error" ng-show="form.$invalid">
+                    <div ng-message="required">This field is required!</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex-gt-sm="33">
+                <label>Organization</label>
+                <input name="organization" ng-model="obj.organization" required>
+                <div ng-messages="form.organization.$error" ng-show="form.$invalid">
+                    <div ng-message="required">This field is required!</div>
+                </div>
+            </md-input-container>
+        
+        
+            <md-input-container flex-gt-sm="10" >
+                <md-button class="md-raised md-primary" ng-click="addFn()"ng-show="isEnabled">Add</md-button>
+                <md-button class="md-raised md-warn" ng-click="removeFn()" ng-show="!isEnabled">Remove</md-button>
+            </md-input-container>
+        </div>
+    </ng-form>
+</div>

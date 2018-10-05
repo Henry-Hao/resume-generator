@@ -18,7 +18,7 @@ define([
     ]);
 
     // basic configurations of fileters, routers, etc.
-    app.config(function ($controllerProvider, $filterProvider,$urlRouterProvider,$stateProvider) {
+    app.config(function ($controllerProvider, $filterProvider,$urlRouterProvider,$stateProvider,$mdDateLocaleProvider) {
         app.controllerProvider = $controllerProvider;
         app.filterProvider = $filterProvider;
 
@@ -42,11 +42,21 @@ define([
                 url: '#skill',
                 templateUrl: VIEW_ROOT + '/resume.html#skill'
             }
-        ]
+        ];
 
         states.forEach(state => {
             $stateProvider.state(state);
+
+            
         });
+
+        // format date
+        $mdDateLocaleProvider.formatDate = function(date) {
+            if(date != null && date != undefined && date != "")
+                return new Date(date).toISOString().substring(0,7).replace('-','.');
+            return "";
+        };
+
     });
     
     return app;

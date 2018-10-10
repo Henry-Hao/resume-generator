@@ -100,8 +100,7 @@ define([
             page_width,
             page_height,
             PROPERTIES = {
-                LINEHEIGHT: 15,
-                DOTRADIUS_SM: 1,
+                DOTRADIUS_S: 4,
                 SPACE: 6,
                 FONT_S:10,
                 FONT_M:20,
@@ -128,13 +127,15 @@ define([
             doc = new jsPDF('p','pt');
             page_width = doc.internal.pageSize.getWidth();
             page_height = doc.internal.pageSize.getHeight();
+            PROPERTIES.LINEHEIGHT = doc.internal.getLineHeight();
             if(typeof doc === 'object' && doc != null && !!doc.output){
                 
                 cursor = new Cursor({x:PROPERTIES.LEFT_MARGIN,y:PROPERTIES.TOP_MARGIN});
 
                 printHeader(cursor);
                 printDivider(cursor);
-
+                printEducation(cursor);
+                
                 frame.attr('src',doc.output('datauristring'));
             }
         }
@@ -152,28 +153,28 @@ define([
             if(typeof doc === 'object' && doc != null){
                 //name
                 doc.setFontSize(PROPERTIES.FONT_L);
-                doc.text(cur.x, cur.y, $scope.resume.basic.name);
+                doc.text(cur.x, cur.y, $scope.resume.basic.name || " ");
                 cur.y += PROPERTIES.LINEHEIGHT + 5;
 
                 //email,phone
                 doc.setFontSize(PROPERTIES.FONT_S);
-                // doc.circle(cur.x, cur.y,PROPERTIES.DOTRADIUS_SM, 'FD');
-                // doc.text(cur.x + 2 * PROPERTIES.DOTRADIUS_SM + PROPERTIES.SPACE, cur.y + 2 * PROPERTIES.DOTRADIUS_SM, $scope.resume.basic.email);
+                // doc.circle(cur.x, cur.y,PROPERTIES.DOTRADIUS_S, 'FD');
+                // doc.text(cur.x + 2 * PROPERTIES.DOTRADIUS_S + PROPERTIES.SPACE, cur.y + 2 * PROPERTIES.DOTRADIUS_S, $scope.resume.basic.email);
 
-                doc.text(cur.x, cur.y, $scope.resume.basic.email);
+                doc.text(cur.x, cur.y, $scope.resume.basic.email || " ");
 
-                cur.x += doc.getStringUnitWidth($scope.resume.basic.email) * PROPERTIES.FONT_S;
+                cur.x += doc.getTextWidth($scope.resume.basic.email);
                 cur.x += 2 * PROPERTIES.SPACE;
-                // doc.circle(cur.x, cur.y, PROPERTIES.DOTRADIUS_SM, 'FD');
-                // doc.text(cur.x + 2 * PROPERTIES.DOTRADIUS_SM + PROPERTIES.SPACE, cur.y + 2 * PROPERTIES.DOTRADIUS_SM, $scope.resume.basic.phone );
+                // doc.circle(cur.x, cur.y, PROPERTIES.DOTRADIUS_S, 'FD');
+                // doc.text(cur.x + 2 * PROPERTIES.DOTRADIUS_S + PROPERTIES.SPACE, cur.y + 2 * PROPERTIES.DOTRADIUS_S, $scope.resume.basic.phone );
 
-                doc.text(cur.x, cur.y, $scope.resume.basic.phone);
+                doc.text(cur.x, cur.y, $scope.resume.basic.phone || " ");
                 cur.y += PROPERTIES.LINEHEIGHT;
                 
                 //location
                 cur.x = PROPERTIES.LEFT_MARGIN;
                 doc.setFontSize(PROPERTIES.FONT_S);
-                doc.text(cur.x, cur.y, $scope.resume.basic.city + ',' + $scope.resume.basic.province.toUpperCase() + ',' + $scope.resume.basic.country.toUpperCase())
+                doc.text(cur.x, cur.y, ($scope.resume.basic.city + ',' + $scope.resume.basic.province.toUpperCase() + ',' + $scope.resume.basic.country.toUpperCase()) || " ")
                 cur.y += PROPERTIES.LINEHEIGHT;
             }
         }
@@ -181,7 +182,44 @@ define([
         function printDivider(cur){
             if(typeof doc === 'object' && doc != null){
                 doc.line(PROPERTIES.LEFT_MARGIN, cur.y,page_width - PROPERTIES.LEFT_MARGIN, cur.y);
+                cur.y += PROPERTIES.LINEHEIGHT;
             }
+        }
+
+        function printEducation(cur){
+            //title
+
+            doc.setFontSize(PROPERTIES.FONT_S).setFontStyle('bold');
+            doc.text(cur.x, cur.y, "EDUCATION");
+            cur.y += PROPERTIES.LINEHEIGHT;
+
+            //education list
+            
+            $scope.resume.education_list.forEach(education => {
+                doc.setFontStyle('bold');
+                doc.text(cur.x, cur.y, education.name || " ");
+                if(education.gpa){
+                    var gpa = " (GPA:" + education.gpa + ")"
+                    doc.text(cur.x + doc.getTextWidth(education.name || ""), cur.y, gpa);
+                }
+                doc.setFontStyle('normal');
+                var date = education.start_date + '-' + education.end_date;
+                var title = education.name;
+                if(education.city)
+                    title += ',' + education.city;
+                if(education.province)
+                    title += ',' + education.province;
+                if(education.country)
+                    title += ',' + education.country;
+
+                doc.text(page_width - doc.getTextWidth(date) - PROPERTIES.LEFT_MARGIN, cur.y, date || " ");
+                cur.y += PROPERTIES.LINEHEIGHT;
+
+                
+
+                doc.text(cur.x + PROPERTIES.SPACE, cur.y, title || " ");
+                cur.y += PROPERTIES.LINEHEIGHT;
+            });
         }
         
 

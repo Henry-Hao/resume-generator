@@ -14,6 +14,7 @@ function Education(){
     this.start_date = "";
     this.end_date = "";
     this.name = "";
+    this.degree = "";
     this.city = "";
     this.province = "";
     this.country = "";

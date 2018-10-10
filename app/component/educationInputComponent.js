@@ -33,6 +33,12 @@ define([
                     scope.education_list.splice(idx, 1);
                         angular.element('#education_list education-input')[idx].remove();
                 }
+
+                scope.formateDate = function(date) {
+                    if(date != null && date != undefined && date != "")
+                        return new Date(date).toISOString().substring(0,7).replace('-','.');
+                    return "";
+                };
             }
         }
     })

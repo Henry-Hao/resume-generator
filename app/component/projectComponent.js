@@ -2,7 +2,7 @@ define([
     'main'
 ], function(ngModule) {
     'use strict';
-    return ngModule.directive("project",function($compile){
+    return ngModule.directive("project",function($compile, dateFormatService){
         return {
             templateUrl: '/app/static/view/component/project.html',
             restrict: 'E',
@@ -33,6 +33,8 @@ define([
                     scope.project_list.splice(idx, 1);
                         angular.element('#project_list project')[idx].remove();
                 }
+
+                scope.formatDate = dateFormatService.formatDate;
             }
         }
     })

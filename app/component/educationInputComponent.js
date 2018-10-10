@@ -2,7 +2,7 @@ define([
     'main'
 ], function(ngModule) {
     'use strict';
-    return ngModule.directive("educationInput",function($compile){
+    return ngModule.directive("educationInput",function($compile, dateFormatService){
         return {
             templateUrl: '/app/static/view/component/educationInput.html',
             restrict: 'E',
@@ -34,11 +34,7 @@ define([
                         angular.element('#education_list education-input')[idx].remove();
                 }
 
-                scope.formateDate = function(date) {
-                    if(date != null && date != undefined && date != "")
-                        return new Date(date).toISOString().substring(0,7).replace('-','.');
-                    return "";
-                };
+                scope.formatDate = dateFormatService.formatDate;
             }
         }
     })

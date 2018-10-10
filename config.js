@@ -60,6 +60,9 @@ require(['jquery'],function(jquery){
         'app/data/project',
         'app/data/resume',
 
+        //service
+        'app/service/dateFormatService'
+
     ],function(angular){
         // bootstrap
         angular.bootstrap(document.documentElement, ['myApp']);

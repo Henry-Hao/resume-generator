@@ -139,6 +139,8 @@ define([
                 printEducation(cursor);
                 printDivider(cursor);
                 printSkills(cursor);
+                printDivider(cursor);
+                printProjects(cursor);
                 
                 frame.attr('src',doc.output('datauristring'));
             }
@@ -239,17 +241,55 @@ define([
                     cur.x = PROPERTIES.LEFT_MARGIN;
                     if(skill.category){
                         doc.text(cur.x, cur.y, skill.category + ":");
-                        cur.x += doc.getTextWidth(skill.category + ":");
+                        cur.x += doc.getTextWidth(skill.category + ":") + PROPERTIES.SPACE;
                     }
-                    skills = doc.splitTextToSize(skill.skills,page_width - PROPERTIES.LEFT_MARGIN * 2 - cur.x);
-                    // for(var i = 0; i < skills.length; i++){
-                    //     doc.text(skills[i],cur.y)
-                    //     cur.y += PROPERTIES.LINEHEIGHT;
-                    // }
+                    var skills = doc.splitTextToSize(skill.skills,page_width - PROPERTIES.LEFT_MARGIN * 2 - cur.x);
 
                     doc.text(cur.x, cur.y, skills);
                     cur.y += PROPERTIES.LINEHEIGHT * skills.length;
                 })
+            }
+        }
+
+        function printProjects(cur){
+            if(typeof doc === 'object' && doc != null){
+                //title
+                doc.setFontSize(PROPERTIES.FONT_S).setFontStyle('bold');
+                doc.text(cur.x, cur.y, "PROJECT");
+                cur.y += PROPERTIES.LINEHEIGHT;
+                
+                
+                $scope.resume.projects.forEach(project => {
+                    cur.x = PROPERTIES.LEFT_MARGIN;
+                    doc.setFontStyle('bolditalic');
+
+                    doc.text(cur.x, cur.y, project.title);
+                    doc.setFontStyle('normal');
+
+                    var date = project.start_date + '-' + project.end_date;
+                    doc.text(page_width - PROPERTIES.LEFT_MARGIN - doc.getTextWidth(date), cur.y, date);
+                    cur.y += PROPERTIES.LINEHEIGHT;
+
+                    doc.setFontStyle('bold');
+                    var organization = "Organization: ";
+                    doc.text(cur.x, cur.y, organization);
+                    doc.setFontStyle('normal');
+                    doc.text(cur.x + doc.getTextWidth(organization), cur.y, project.organization);
+                    cur.y += PROPERTIES.LINEHEIGHT;
+
+                    if(project.related_skills){
+                        doc.setFontStyle('bold');
+                        doc.text(cur.x, cur.y, "Related skills: ");
+                        var skills = doc.splitTextToSize(project.related_skills,page_width - PROPERTIES.LEFT_MARGIN * 2 - doc.getTextWidth("related skills: "));
+
+                        doc.text(cur.x + doc.getTextWidth("related skills: "), cur.y, skills);
+                        cur.y += PROPERTIES.LINEHEIGHT * skills.length;
+                    }
+                    
+
+
+                })
+
             }
         }
 

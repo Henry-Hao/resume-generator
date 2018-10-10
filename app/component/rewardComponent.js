@@ -4,7 +4,7 @@ define([
     'use strict';
     return ngModule
     
-    .directive("reward",function($compile){
+    .directive("reward",function($compile, dateFormatService){
         return {
             templateUrl: '/app/static/view/component/reward.html',
             restrict: 'E',
@@ -40,6 +40,8 @@ define([
                     scope.reward_list.splice(idx, 1);
                         angular.element('#reward_list reward')[idx].remove();
                 }
+
+                scope.formatDate = dateFormatService.formatDate;
             }
         }
     })

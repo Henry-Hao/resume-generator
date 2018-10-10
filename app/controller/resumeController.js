@@ -124,7 +124,9 @@ define([
 
 
         $scope.update = function(){
-            doc = new jsPDF('p','pt');
+            doc = new jsPDF('p','pt').setProperties({
+                title:"Resume"
+            });
             page_width = doc.internal.pageSize.getWidth();
             page_height = doc.internal.pageSize.getHeight();
             PROPERTIES.LINEHEIGHT = doc.internal.getLineHeight();
@@ -135,6 +137,8 @@ define([
                 printHeader(cursor);
                 printDivider(cursor);
                 printEducation(cursor);
+                printDivider(cursor);
+                printSkills(cursor);
                 
                 frame.attr('src',doc.output('datauristring'));
             }
@@ -187,41 +191,67 @@ define([
         }
 
         function printEducation(cur){
-            //title
-
-            doc.setFontSize(PROPERTIES.FONT_S).setFontStyle('bold');
-            doc.text(cur.x, cur.y, "EDUCATION");
-            cur.y += PROPERTIES.LINEHEIGHT;
-
-            //education list
-            
-            $scope.resume.education_list.forEach(education => {
-                doc.setFontStyle('bold');
-                doc.text(cur.x, cur.y, education.name || " ");
-                if(education.gpa){
-                    var gpa = " (GPA:" + education.gpa + ")"
-                    doc.text(cur.x + doc.getTextWidth(education.name || ""), cur.y, gpa);
-                }
-                doc.setFontStyle('normal');
-                var date = education.start_date + '-' + education.end_date;
-                var title = education.name;
-                if(education.city)
-                    title += ',' + education.city;
-                if(education.province)
-                    title += ',' + education.province;
-                if(education.country)
-                    title += ',' + education.country;
-
-                doc.text(page_width - doc.getTextWidth(date) - PROPERTIES.LEFT_MARGIN, cur.y, date || " ");
+            if(typeof doc === 'object' && doc != null){
+                //title
+                doc.setFontSize(PROPERTIES.FONT_S).setFontStyle('bold');
+                doc.text(cur.x, cur.y, "EDUCATION");
                 cur.y += PROPERTIES.LINEHEIGHT;
 
+                //education list
                 
+                $scope.resume.education_list.forEach(education => {
+                    doc.setFontStyle('bold');
+                    doc.text(cur.x, cur.y, education.name || " ");
+                    if(education.gpa){
+                        var gpa = " (GPA:" + education.gpa + ")"
+                        doc.text(cur.x + doc.getTextWidth(education.name || ""), cur.y, gpa);
+                    }
+                    doc.setFontStyle('normal');
+                    var date = education.start_date + '-' + education.end_date;
+                    var title = education.name;
+                    if(education.city)
+                        title += ',' + education.city;
+                    if(education.province)
+                        title += ',' + education.province;
+                    if(education.country)
+                        title += ',' + education.country;
 
-                doc.text(cur.x + PROPERTIES.SPACE, cur.y, title || " ");
-                cur.y += PROPERTIES.LINEHEIGHT;
-            });
+                    doc.text(page_width - doc.getTextWidth(date) - PROPERTIES.LEFT_MARGIN, cur.y, date || " ");
+                    cur.y += PROPERTIES.LINEHEIGHT;
+
+                    
+
+                    doc.text(cur.x + PROPERTIES.SPACE, cur.y, title || " ");
+                    cur.y += PROPERTIES.LINEHEIGHT;
+                });
+            }
         }
         
+        function printSkills(cur){
+            if(typeof doc === 'object' && doc != null){
+                //title
+                doc.setFontSize(PROPERTIES.FONT_S).setFontStyle('bold');
+                doc.text(cur.x, cur.y, "SKILL");
+                cur.y += PROPERTIES.LINEHEIGHT;
+                doc.setFontSize(PROPERTIES.FONT_S).setFontStyle('normal');
+
+                $scope.resume.skill_group.forEach(skill => {
+                    cur.x = PROPERTIES.LEFT_MARGIN;
+                    if(skill.category){
+                        doc.text(cur.x, cur.y, skill.category + ":");
+                        cur.x += doc.getTextWidth(skill.category + ":");
+                    }
+                    skills = doc.splitTextToSize(skill.skills,page_width - PROPERTIES.LEFT_MARGIN * 2 - cur.x);
+                    // for(var i = 0; i < skills.length; i++){
+                    //     doc.text(skills[i],cur.y)
+                    //     cur.y += PROPERTIES.LINEHEIGHT;
+                    // }
+
+                    doc.text(cur.x, cur.y, skills);
+                    cur.y += PROPERTIES.LINEHEIGHT * skills.length;
+                })
+            }
+        }
 
     });
 });

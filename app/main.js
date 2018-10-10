@@ -2,9 +2,8 @@ define([
     'angular',
     'ui-bootstrap',
     'ngRoute',
-    'ngScroll',
     'messages',
-    'material'
+    'material',
 ],function(angular){
     'use strict';
 
@@ -12,15 +11,16 @@ define([
     var app = angular.module('myApp',[
         'ui.bootstrap',
         'ui.router',
-        'duScroll',
         'ngMessages',
-        'ngMaterial'
+        'ngMaterial',
     ]);
 
     // basic configurations of fileters, routers, etc.
-    app.config(function ($controllerProvider, $filterProvider,$urlRouterProvider,$stateProvider,$mdDateLocaleProvider) {
+    app.config(function ($controllerProvider, $filterProvider,$urlRouterProvider,$stateProvider,$mdDateLocaleProvider,$qProvider) {
         app.controllerProvider = $controllerProvider;
         app.filterProvider = $filterProvider;
+
+        $qProvider.errorOnUnhandledRejections(false);   
 
         $urlRouterProvider.when('','/resume');
         var VIEW_ROOT = '/app/static/view'
@@ -31,16 +31,6 @@ define([
                 url: '/resume',
                 templateUrl: VIEW_ROOT + '/resume.html',
                 controller: 'resumeController'
-            },
-            {
-                name: 'resume.basic',
-                url: '#basic',
-                templateUrl: VIEW_ROOT + '/resume.html#basic'
-            },
-            {
-                name: 'resume.skill',
-                url: '#skill',
-                templateUrl: VIEW_ROOT + '/resume.html#skill'
             }
         ];
 

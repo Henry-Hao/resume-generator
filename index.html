@@ -8,14 +8,15 @@
     
     <link rel="stylesheet" href="./node_modules/angular-material/angular-material.css" />
     <link rel="stylesheet"  href="./app/static/style/index.css" />
+    <script src="./node_modules/jspdf/dist/jspdf.debug.js"></script>
     <script src="./node_modules/requirejs/require.js" data-main="./config.js"></script>
 </head>
 <body data-ng-controller="indexController">
 
-    <div layout="row" style="min-height:700px">
-        <div flex="40">1234</div>
+    <div layout="row">
+        <iframe id="left" flex="40" frameborder="0" framemargin="0"></iframe>
         <md-divider></md-divider>
-        <ui-view flex="60" style="height: 700px;"></ui-view>
+        <ui-view id="right" flex="60" ></ui-view>
     </div>
     
 </body>

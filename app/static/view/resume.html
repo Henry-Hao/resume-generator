@@ -1,17 +1,19 @@
-<div layout="column">
+<div layout="column"  md-theme="docs-dark">
 	<md-content id="nav-bar">
-		<md-nav-bar>
-			<md-nav-item md-nav-href="#basic" name="Basic">Basic</md-nav-item>
-			<md-nav-item md-nav-href="#education_list" name="Education">Education</md-nav-item>
-			<md-nav-item md-nav-href="#skill_group" name="Skill">Skill</md-nav-item>
-			<md-nav-item md-nav-href="#project_list" name="Project">Project</md-nav-item>
-			<md-nav-item md-nav-href="#reward_list" name="Reward">Reward</md-nav-item>
+		<md-nav-bar md-no-ink-bar="true">
+			<md-nav-item md-nav-href="#basic" id="basic_nav" >Basic</md-nav-item>
+			<md-nav-item md-nav-href="#education_list" id="education_nav" name="Education" >Education</md-nav-item>
+			<md-nav-item md-nav-href="#skill_group" id="skill_nav" name="Skill" >Skill</md-nav-item>
+			<md-nav-item md-nav-href="#project_list" id="project_nav" name="Project" >Project</md-nav-item>
+			<md-nav-item md-nav-href="#reward_list" id="rewar_nav" name="Reward" >Reward</md-nav-item>
+			<md-button ng-click="update()" class="md-primary md-raised updateBtn" md-no-ink>Update</md-button>
 		</md-nav-bar>
 	</md-content>
 
-	<form name="form" layout="column" ng-cloak class="md-inline-form"  md-theme="docs-dark"  layout-padding>
+
+	<form name="form" layout="column" ng-cloak class="md-inline-form" layout-padding>
 		<!-- BasicInfo -->
-		<md-content layout-gt-sm="column" id="basic" class="padding-top-50">
+		<md-content id="basic" layout-gt-sm="column"  class="padding-top-50">
 			<md-subheader>Basic Info</md-subheader>
 			<div layout-sm="column" layout-xs="column"  layout>
 				<md-input-container flex-gt-sm="33">

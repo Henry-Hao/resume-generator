@@ -11,6 +11,10 @@
     color: grey; 
 }
 
+#right{
+    overflow: auto;
+}
+
 education-input > div, 
 skill-group > div,
 project > div,
@@ -31,4 +35,12 @@ reward > div
 .padding-top-50{
     padding-top:50px;
     
+}
+
+.active{
+    background-color: rgba(245, 99, 99, 0.726);
+}
+.updateBtn{
+    position: fixed;
+    right: 0;
 }

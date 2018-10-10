@@ -5,12 +5,10 @@ require.config({
         angular: 'node_modules/angular/angular.min',
         ngRoute: 'node_modules/@uirouter/angularjs/release/angular-ui-router',
         'ui-bootstrap':'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls',
-        ngScroll: 'node_modules/angular-scroll/angular-scroll',
         material: 'node_modules/angular-material/angular-material',
         aria: 'node_modules/angular-aria/angular-aria',
         animate: 'node_modules/angular-animate/angular-animate',
         messages: 'node_modules/angular-messages/angular-messages',
-
         // initialization of angular
         main: 'app/main',
     },
@@ -25,9 +23,6 @@ require.config({
         ngRoute: {
             deps: ['angular']
         },
-        ngScroll: {
-            deps: ['angular']
-        },
         material: {
             deps: ['angular','aria','animate','messages']
         },
@@ -39,7 +34,7 @@ require.config({
         },
         messages: {
             deps: ['angular']
-        }
+        },
     }
 });
 
@@ -69,4 +64,5 @@ require(['jquery'],function(jquery){
         // bootstrap
         angular.bootstrap(document.documentElement, ['myApp']);
     })
+    
 })

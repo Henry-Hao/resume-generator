@@ -1,7 +1,7 @@
 function Resume(){
 
     this.basic = {
-        name: "",
+        name: "Example Name",
         email: "test@example.com",
         city: "OTTAWA",
         province: "ON",
@@ -20,7 +20,6 @@ function Resume(){
     this.rewards = [
         //new reward();
     ];
-
 
 
 }

@@ -20,5 +20,12 @@
     "jquery": "^3.3.1",
     "jspdf": "^1.4.1",
     "requirejs": "^2.3.6"
+  },
+  "devDependencies": {
+    "jasmine-core": "^3.2.1",
+    "karma": "^3.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^1.1.2",
+    "karma-requirejs": "^1.1.0"
   }
 }

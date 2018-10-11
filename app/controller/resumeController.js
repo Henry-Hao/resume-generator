@@ -71,18 +71,22 @@ define([
                 
                 cursor = new Cursor({x:PROPERTIES.LEFT_MARGIN,y:PROPERTIES.TOP_MARGIN});
 
-                printHeader(cursor);
-                printDivider(cursor);
-                printEducation(cursor);
-                printDivider(cursor);
-                printSkills(cursor);
-                printDivider(cursor);
-                printProjects(cursor);
-                printDivider(cursor);
-                printRewards(cursor);
+                renderTemplateOne(cursor);
                 
                 frame.attr('src',doc.output('datauristring'));
             }
+        }
+
+        function renderTemplateOne(cursor){
+            printHeader(cursor);
+            printDivider(cursor);
+            printEducation(cursor);
+            printDivider(cursor);
+            printSkills(cursor);
+            printDivider(cursor);
+            printProjects(cursor);
+            printDivider(cursor);
+            printRewards(cursor);
         }
 
         function Cursor({x,y}){ 

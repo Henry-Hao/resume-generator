@@ -41,50 +41,23 @@
 			<div layout-sm="column" layout-xs="column" layout>
 				<md-input-container flex-gt-sm="33">
 					<label>Country</label>
-					<md-select name="country" ng-model="selected_country" placeholder="Select a country ">
-						<md-select-header>
-							<input 
-								type="search" 
-								ng-model="countryTerm" 
-								ng-keydown="$event.stopPropagation()"
-								placeholder="Search a country">
-						</md-select-header>
-						<md-option ng-value="country" ng-repeat="country in getCountries() | filter:countryTerm">{{ country }}</md-option>
-					</md-select>
+					<input name="country" ng-model="resume.basic.country">
 					<div ng-messages="form.country.$error">
 						<div ng-message="required">This field is required!</div>
 					</div>
 				</md-input-container>
 
 				<md-input-container flex-gt-sm="33">
-					<label>Country</label>
-					<md-select name="province" ng-model="selected_province" placeholder="Select a province">
-						<md-select-header>
-							<input 
-								type="search" 
-								ng-model="provinceTerm" 
-								ng-keydown="$event.stopPropagation()"
-								placeholder="Search a province">
-						</md-select-header>
-						<md-option ng-value="province" ng-repeat="province in getProvinces() | filter:provinceTerm">{{ province }}</md-option>
-					</md-select>
+					<label>Province</label>
+					<input name="province" ng-model="resume.basic.province">
 					<div ng-messages="form.province.$error">
 						<div ng-message="required">This field is required!</div>
 					</div>
 				</md-input-container>
 
 				<md-input-container flex-gt-sm="33">
-					<label>Country</label>
-					<md-select name="city" ng-model="selected_city" placeholder="Select a city">
-						<md-select-header>
-							<input 
-								type="search" 
-								ng-model="searchcity" 
-								ng-keydown="$event.stopPropagation()"
-								placeholder="Search a city">
-						</md-select-header>
-						<md-option ng-value="city" ng-repeat="city in getCities() | filter:cityTerm">{{ city }}</md-option>
-					</md-select>
+					<label>City</label>
+					<input name="city" ng-model="resume.basic.city">
 					<div ng-messages="form.city.$error">
 						<div ng-message="required">This field is required!</div>
 					</div>

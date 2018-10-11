@@ -11,75 +11,19 @@ define([
     
     })
     .controller('resumeController',function($scope, $compile, $window, $timeout){
+        
+        var timeout,
+            w = angular.element($window),
+            r = angular.element(document.getElementById("right")),
+            frame = angular.element(document.getElementById("left")),
+            cursor,
+            doc,
+            page_width,
+            page_height,
+            PROPERTIES;
+
         $scope.header = 'Basic';
         $scope.resume = new Resume();
-        $scope.countries = ['USA','CHINA','FRANCE','CANADA'];
-        $scope.places = {
-            'USA': {
-                'California':[
-                    'Los Angeles',
-                    'Irvine',
-                    'San Diego'
-                ],
-                'TE':[
-                    'Houston',
-                    'San Antonio'
-                ]
-            },
-            'CANADA':{
-                'Ontario':[
-                    'Toronto',
-                    'Ottawa',
-                    'Windsow'
-                ],
-                'Qubec':[
-                    'Montreal',
-                    'Qubec City'
-                ]
-            },
-            'CHINA':{
-                'Shanghai':[
-                    'Shanghai'
-                ],
-                'Liaoning':[
-                    'Shenyang',
-                    'Benxi'
-                ]
-            }
-
-        };
-        $scope.countryTerm = "";
-        $scope.provinceTerm = "";
-        $scope.cityTerm = "";
-        $scope.selected_country = "";
-        $scope.selected_province = "";
-        $scope.selected_city = "";
-        var timeout;
-        
-
-
-        $scope.getCountries = function(){
-            return Object.keys($scope.places);
-        }
-        $scope.getProvinces = function(){
-            if($scope.selected_country != "")
-                return Object.keys($scope.places[$scope.selected_country]);
-            return null;
-        }
-        $scope.getCities = function(){
-            if($scope.selected_country != "" && $scope.selected_province != "")
-                return $scope.places[$scope.selected_country][$scope.selected_province];
-            return null;
-        }
-
-        $scope.$watch('selected_country',function(){
-            $scope.selected_province = "";
-            $scope.selected_city = "";
-        });
-
-        $scope.$watch('selected_province',function(){
-            $scope.selected_city = "";
-        });
 
         $scope.$watch('resume',function(){
             // modifications in the 400ms will be updated all at once
@@ -92,14 +36,6 @@ define([
         },true);
 
         // calculate right height automaticlly
-        var w = angular.element($window),
-            r = angular.element(document.getElementById("right")),
-            frame = angular.element(document.getElementById("left")),
-            cursor,
-            doc,
-            page_width,
-            page_height,
-            PROPERTIES;
         
         function updateRightHeight(){
             r.css("height",w.height() + "px");
@@ -144,6 +80,7 @@ define([
                 printProjects(cursor);
                 printDivider(cursor);
                 printRewards(cursor);
+                
                 frame.attr('src',doc.output('datauristring'));
             }
         }

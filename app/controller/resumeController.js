@@ -99,15 +99,7 @@ define([
             doc,
             page_width,
             page_height,
-            PROPERTIES = {
-                DOTRADIUS_S: 4,
-                SPACE: 6,
-                FONT_S:10,
-                FONT_M:20,
-                FONT_L:30,
-                LEFT_MARGIN: 40,
-                TOP_MARGIN: 40
-            };
+            PROPERTIES;
         
         function updateRightHeight(){
             r.css("height",w.height() + "px");
@@ -129,7 +121,16 @@ define([
             });
             page_width = doc.internal.pageSize.getWidth();
             page_height = doc.internal.pageSize.getHeight();
-            PROPERTIES.LINEHEIGHT = doc.internal.getLineHeight();
+            PROPERTIES = {
+                DOTRADIUS_S: 4,
+                SPACE: 6,
+                FONT_S:10,
+                FONT_M:20,
+                FONT_L:30,
+                LEFT_MARGIN: 40,
+                TOP_MARGIN: 40,
+                LINEHEIGHT: doc.internal.getLineHeight()
+            };
             if(typeof doc === 'object' && doc != null && !!doc.output){
                 
                 cursor = new Cursor({x:PROPERTIES.LEFT_MARGIN,y:PROPERTIES.TOP_MARGIN});
@@ -141,7 +142,8 @@ define([
                 printSkills(cursor);
                 printDivider(cursor);
                 printProjects(cursor);
-                
+                printDivider(cursor);
+                printRewards(cursor);
                 frame.attr('src',doc.output('datauristring'));
             }
         }
@@ -155,32 +157,48 @@ define([
          * PDF Manipulation
          */
 
+        function textWithCheck(doc, x, y, text){
+            if(typeof doc === 'object' && doc != null){
+                if(Object.prototype.toString.call(text) === '[object Array]'){
+                    text.forEach(item => {
+                        y = checkNewPage(y);
+                        doc.text(x,y,item);
+                        y += PROPERTIES.LINEHEIGHT;
+                    })
+                    y -= PROPERTIES.LINEHEIGHT;
+                } else {
+                    y = checkNewPage(y);
+                    doc.text(x,y,text);
+                }
+            }
+        }
+
         function printHeader(cur){
             if(typeof doc === 'object' && doc != null){
                 //name
                 doc.setFontSize(PROPERTIES.FONT_L);
-                doc.text(cur.x, cur.y, $scope.resume.basic.name || " ");
+                textWithCheck(doc, cur.x, cur.y, $scope.resume.basic.name || " ");
                 cur.y += PROPERTIES.LINEHEIGHT + 5;
 
                 //email,phone
                 doc.setFontSize(PROPERTIES.FONT_S);
                 // doc.circle(cur.x, cur.y,PROPERTIES.DOTRADIUS_S, 'FD');
-                // doc.text(cur.x + 2 * PROPERTIES.DOTRADIUS_S + PROPERTIES.SPACE, cur.y + 2 * PROPERTIES.DOTRADIUS_S, $scope.resume.basic.email);
+                // textWithCheck(doc, cur.x + 2 * PROPERTIES.DOTRADIUS_S + PROPERTIES.SPACE, cur.y + 2 * PROPERTIES.DOTRADIUS_S, $scope.resume.basic.email);
 
-                doc.text(cur.x, cur.y, $scope.resume.basic.email || " ");
+                textWithCheck(doc, cur.x, cur.y, $scope.resume.basic.email || " ");
 
                 cur.x += doc.getTextWidth($scope.resume.basic.email);
                 cur.x += 2 * PROPERTIES.SPACE;
                 // doc.circle(cur.x, cur.y, PROPERTIES.DOTRADIUS_S, 'FD');
-                // doc.text(cur.x + 2 * PROPERTIES.DOTRADIUS_S + PROPERTIES.SPACE, cur.y + 2 * PROPERTIES.DOTRADIUS_S, $scope.resume.basic.phone );
+                // textWithCheck(doc, cur.x + 2 * PROPERTIES.DOTRADIUS_S + PROPERTIES.SPACE, cur.y + 2 * PROPERTIES.DOTRADIUS_S, $scope.resume.basic.phone );
 
-                doc.text(cur.x, cur.y, $scope.resume.basic.phone || " ");
+                textWithCheck(doc, cur.x, cur.y, $scope.resume.basic.phone || " ");
                 cur.y += PROPERTIES.LINEHEIGHT;
                 
                 //location
                 cur.x = PROPERTIES.LEFT_MARGIN;
                 doc.setFontSize(PROPERTIES.FONT_S);
-                doc.text(cur.x, cur.y, ($scope.resume.basic.city + ',' + $scope.resume.basic.province.toUpperCase() + ',' + $scope.resume.basic.country.toUpperCase()) || " ")
+                textWithCheck(doc, cur.x, cur.y, ($scope.resume.basic.city + ',' + $scope.resume.basic.province.toUpperCase() + ',' + $scope.resume.basic.country.toUpperCase()) || " ")
                 cur.y += PROPERTIES.LINEHEIGHT;
             }
         }
@@ -192,21 +210,32 @@ define([
             }
         }
 
+        function checkNewPage(y){
+            if(typeof doc === 'object' && doc != null){
+                if(y >= page_height - 2 * PROPERTIES.TOP_MARGIN){
+                    doc.addPage();
+                    cursor.y = PROPERTIES.TOP_MARGIN;
+                    return cursor.y;
+                }
+                return y;
+            }
+        }
+
         function printEducation(cur){
             if(typeof doc === 'object' && doc != null){
                 //title
                 doc.setFontSize(PROPERTIES.FONT_S).setFontStyle('bold');
-                doc.text(cur.x, cur.y, "EDUCATION");
+                textWithCheck(doc, cur.x, cur.y, "EDUCATION");
                 cur.y += PROPERTIES.LINEHEIGHT;
 
                 //education list
                 
                 $scope.resume.education_list.forEach(education => {
                     doc.setFontStyle('bold');
-                    doc.text(cur.x, cur.y, education.name || " ");
+                    textWithCheck(doc, cur.x, cur.y, education.name || " ");
                     if(education.gpa){
                         var gpa = " (GPA:" + education.gpa + ")"
-                        doc.text(cur.x + doc.getTextWidth(education.name || ""), cur.y, gpa);
+                        textWithCheck(doc, cur.x + doc.getTextWidth(education.name || ""), cur.y, gpa);
                     }
                     doc.setFontStyle('normal');
                     var date = education.start_date + '-' + education.end_date;
@@ -218,12 +247,12 @@ define([
                     if(education.country)
                         title += ',' + education.country;
 
-                    doc.text(page_width - doc.getTextWidth(date) - PROPERTIES.LEFT_MARGIN, cur.y, date || " ");
+                    textWithCheck(doc, page_width - doc.getTextWidth(date) - PROPERTIES.LEFT_MARGIN, cur.y, date || " ");
                     cur.y += PROPERTIES.LINEHEIGHT;
 
                     
 
-                    doc.text(cur.x + PROPERTIES.SPACE, cur.y, title || " ");
+                    textWithCheck(doc, cur.x + PROPERTIES.SPACE, cur.y, title || " ");
                     cur.y += PROPERTIES.LINEHEIGHT;
                 });
             }
@@ -233,19 +262,19 @@ define([
             if(typeof doc === 'object' && doc != null){
                 //title
                 doc.setFontSize(PROPERTIES.FONT_S).setFontStyle('bold');
-                doc.text(cur.x, cur.y, "SKILL");
+                textWithCheck(doc, cur.x, cur.y, "SKILL");
                 cur.y += PROPERTIES.LINEHEIGHT;
                 doc.setFontSize(PROPERTIES.FONT_S).setFontStyle('normal');
 
                 $scope.resume.skill_group.forEach(skill => {
                     cur.x = PROPERTIES.LEFT_MARGIN;
                     if(skill.category){
-                        doc.text(cur.x, cur.y, skill.category + ":");
+                        textWithCheck(doc, cur.x, cur.y, skill.category + ":");
                         cur.x += doc.getTextWidth(skill.category + ":") + PROPERTIES.SPACE;
                     }
                     var skills = doc.splitTextToSize(skill.skills,page_width - PROPERTIES.LEFT_MARGIN * 2 - cur.x);
 
-                    doc.text(cur.x, cur.y, skills);
+                    textWithCheck(doc, cur.x, cur.y, skills);
                     cur.y += PROPERTIES.LINEHEIGHT * skills.length;
                 })
             }
@@ -255,7 +284,7 @@ define([
             if(typeof doc === 'object' && doc != null){
                 //title
                 doc.setFontSize(PROPERTIES.FONT_S).setFontStyle('bold');
-                doc.text(cur.x, cur.y, "PROJECT");
+                textWithCheck(doc, cur.x, cur.y, "PROJECT");
                 cur.y += PROPERTIES.LINEHEIGHT;
                 
                 
@@ -263,55 +292,76 @@ define([
                     cur.x = PROPERTIES.LEFT_MARGIN;
                     doc.setFontStyle('bolditalic');
 
-                    doc.text(cur.x, cur.y, project.title);
+                    textWithCheck(doc, cur.x, cur.y, project.title);
                     doc.setFontStyle('normal');
                     // date
                     var date = project.start_date + '-' + project.end_date;
-                    doc.text(page_width - PROPERTIES.LEFT_MARGIN - doc.getTextWidth(date), cur.y, date);
+                    textWithCheck(doc, page_width - PROPERTIES.LEFT_MARGIN - doc.getTextWidth(date), cur.y, date);
                     cur.y += PROPERTIES.LINEHEIGHT;
                     
                     // organization
-                    doc.setFontStyle('bold');
-                    var organization = "Organization: ";
-                    doc.text(cur.x, cur.y, organization);
-                    doc.setFontStyle('normal');
-                    doc.text(cur.x + doc.getTextWidth(organization) + PROPERTIES.SPACE, cur.y, project.organization);
-                    cur.y += PROPERTIES.LINEHEIGHT;
-
+                    if(project.organization){
+                        doc.setFontStyle('bold');
+                        var organization = "Organization: ";
+                        textWithCheck(doc, cur.x, cur.y, organization);
+                        doc.setFontStyle('normal');
+                        textWithCheck(doc, cur.x + doc.getTextWidth(organization) + PROPERTIES.SPACE, cur.y, project.organization);
+                        cur.y += PROPERTIES.LINEHEIGHT;
+                    }
+                    
                     // summary
                     doc.setFontStyle('bold');
                     var summary = "Summary:"
-                    doc.text(cur.x, cur.y, summary);
+                    textWithCheck(doc, cur.x, cur.y, summary);
                     doc.setFontStyle('normal');
                     var lines = doc.splitTextToSize(project.summary,page_width - PROPERTIES.LEFT_MARGIN * 2 - doc.getTextWidth(summary) - PROPERTIES.SPACE);
 
-                    doc.text(cur.x + doc.getTextWidth(summary) + PROPERTIES.SPACE, cur.y, lines);
+                    textWithCheck(doc, cur.x + doc.getTextWidth(summary) + PROPERTIES.SPACE, cur.y, lines);
                     cur.y += PROPERTIES.LINEHEIGHT * lines.length;
 
                     // related skills
                     if(project.related_skills){
                         doc.setFontStyle('bold');
-                        doc.text(cur.x, cur.y, "Related skills:");
+                        textWithCheck(doc, cur.x, cur.y, "Related skills:");
                         doc.setFontStyle('normal');
-                        var skills = doc.splitTextToSize(project.related_skills,page_width - PROPERTIES.LEFT_MARGIN * 2 - doc.getTextWidth("related skills: ") - PROPERTIES.SPACE);
+                        var skills = doc.splitTextToSize(project.related_skills,page_width - PROPERTIES.LEFT_MARGIN * 2 - doc.getTextWidth("Related skills:") - PROPERTIES.SPACE);
 
-                        doc.text(cur.x + doc.getTextWidth("related skills:") + PROPERTIES.SPACE, cur.y, skills);
+                        textWithCheck(doc, cur.x + doc.getTextWidth("Related skills: ") + PROPERTIES.SPACE, cur.y, skills);
                         cur.y += PROPERTIES.LINEHEIGHT * skills.length;
                     }
 
                     // responsibility
                     doc.setFontStyle('bold');
                     var responsibility = "Responsibility:"
-                    doc.text(cur.x, cur.y, responsibility);
+                    textWithCheck(doc, cur.x, cur.y, responsibility);
                     doc.setFontStyle('normal');
                     lines = doc.splitTextToSize(project.responsibility,page_width - PROPERTIES.LEFT_MARGIN * 2 - doc.getTextWidth(responsibility) - PROPERTIES.SPACE);
 
-                    doc.text(cur.x + doc.getTextWidth(responsibility) + PROPERTIES.SPACE, cur.y, lines);
+                    textWithCheck(doc, cur.x + doc.getTextWidth(responsibility + " ") + PROPERTIES.SPACE, cur.y, lines);
                     cur.y += PROPERTIES.LINEHEIGHT * lines.length;
-
 
                 })
 
+            }
+        }
+
+        function printRewards(cur){
+            if(typeof doc === 'object' && doc != null){
+                // title
+                doc.setFontSize(PROPERTIES.FONT_S).setFontStyle('bold');
+                textWithCheck(doc, cur.x, cur.y, 'REWARD');
+                cur.y += PROPERTIES.LINEHEIGHT;
+
+                $scope.resume.rewards.forEach(reward => {
+                    // reward title
+                    doc.setFontStyle('bold');
+                    textWithCheck(doc, cur.x, cur.y, reward.title);
+
+                    doc.setFontStyle('normal');
+                    var text = reward.organization + ', ' + reward.time;
+                    textWithCheck(doc, page_width - PROPERTIES.LEFT_MARGIN - doc.getTextWidth(text), cur.y, text);
+                    cur.y += PROPERTIES.LINEHEIGHT;
+                })
             }
         }
 

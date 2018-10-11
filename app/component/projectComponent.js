@@ -12,7 +12,7 @@ define([
                 project_list: '=projects'
             },
             link: function(scope, element, attrs){
-                scope.obj = new Skill_group();
+                scope.obj = new Project();
                 // this variable will be independent from the parent
                 scope.isEnabled = true;
 
@@ -20,7 +20,7 @@ define([
                 scope.addFn = function(){
                     if(scope.form.$valid){
                         scope.project_list.push(scope.obj);
-                        angular.element("#skill_group").append($compile(`<project projects="project_list"></project>`)(scope));
+                        angular.element("#project_list").append($compile(`<project projects="project_list"></project>`)(scope));
                         scope.isEnabled = !scope.isEnabled;
                     }
                     // TODO:

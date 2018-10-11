@@ -10,7 +10,7 @@
             </md-input-container>
             <md-input-container flex-gt-sm="20">
                 <label>Time</label>
-                <md-datepicker id="dd" name="time"md-mode="month" readonly="true" ng-model="obj.time" md-max-date="now" md-open-on-focus="true" required></md-datepicker>
+                <md-datepicker id="dd" name="time"md-mode="month" readonly="true" ng-model="time_tmp" ng-change="obj.time=formatDate(time_tmp)" md-max-date="now" md-open-on-focus="true" required></md-datepicker>
                 <div ng-messages="form.time.$error" ng-show="form.$invalid">
                     <div ng-message="required">This field is required!</div>
                 </div>
